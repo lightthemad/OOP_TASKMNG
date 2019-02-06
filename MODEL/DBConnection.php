@@ -15,8 +15,7 @@ class DBConnection
     {
 
         $this->conn = new PDO('mysql:host=localhost; dbname=task_manager',
-            'root', 'rootpass');
-
+            'root', 'root');
 
 
     }

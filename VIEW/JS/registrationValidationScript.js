@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    alert(21);
+
     let passresp = 0;
     let loginresp = 0;
 
