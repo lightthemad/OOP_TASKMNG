@@ -43,4 +43,23 @@ class UserService
 
         }
     }
+
+    public  function update(){
+        if (isset($_POST)) {
+            $upd = new UserDB();
+            $upd->user_name = $_POST['usernameapd'];
+            $upd->password = password_hash($_POST['password'], 1);
+            $upd->firstname = $_POST['firstname'];
+            $upd->lastname = $_POST['lastname'];
+            $upd->age = $_POST['age'];
+            $upd->img = $_POST['image'];
+            $upd->id = $_POST['id'];
+            $upd->update();
+            $return = new UserDB();
+            $return->returnUsers();
+
+        }
+    }
+
+
 }

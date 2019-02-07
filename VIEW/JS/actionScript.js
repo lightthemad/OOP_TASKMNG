@@ -11,4 +11,16 @@ $(document).ready(function () {
 
     });
 
+    $('.adminmaker').on('click', function () {
+        let adminid = $(this).attr('id');
+
+        $.ajax({
+            url: "makeadmin?id="+ adminid,
+            success: function () {
+                location.reload();
+            }
+        });
+
+    });
+
 });

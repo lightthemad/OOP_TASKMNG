@@ -1,7 +1,7 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
 
 define('__ROOT__', __DIR__);
 
@@ -17,5 +17,7 @@ $route->router('/users/log', ['controller.php', 'loginUser']);
 $route->router('/users/check', ['controller.php', 'checkUser']);
 $route->router('/users/logout', ['controller.php', 'logoutUser']);
 $route->router('/users/register', ['controller.php', 'register']);
-$route->router('/users/registeruser', ['controller.php', 'update']);
+$route->router('/users/edituser', ['controller.php', 'update']);
 $route->router('/users/loginuser', ['controller.php', 'login']);
+$route->router('/users/ifadmin', ['controller.php', 'checkadmin']);
+$route->router('/users/makeadmin', ['controller.php', 'makeAdmin']);

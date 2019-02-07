@@ -4,7 +4,7 @@
     <title>UPDATE</title>
 </head>
 <body>
-<form action="<?php  echo '/index.php/users/registeruser' ?>" method="post" name="register">
+<form action="<?php  echo '/index.php/users/edituser' ?>" method="post" name="register">
 
     Nickname:<br>
     <input type="text" name="usernameapd" class="nick">
@@ -37,7 +37,7 @@
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src= <?php __ROOT__ . "/VIEW/JS/registrationValidationScript.js"?> . ></script>
+<script src=  "/VIEW/JS/registrationValidationScript.js" . ></script>
 
 </body>
 </html>

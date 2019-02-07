@@ -51,13 +51,16 @@ class UserDB extends DBConnection
         $result = $this->conn->query($query);
     }
 
+    public function makeAdmin($id){
+        $query = "update users set isadmin = 1
+                    WHERE id = ".$id;
+        $result = $this->conn->query($query);
+    }
+
     public function update(){
-
-        $update = "update users SET first_name = '$this->firstame',last_name = '$this->lastname',
+        return $this->conn->query("update users SET first_name = '$this->firstame',last_name = '$this->lastname',
     user_name = '$this->user_name',password = '$this->password',age = '$this->age', image = '$this->img' where 
-    id = $this->id";
-        $result=$this->conn->query($update);
-
+    id = $this->id");
     }
 
     public function checkUser($id){
@@ -81,6 +84,22 @@ class UserDB extends DBConnection
         }
     }
 
+    public function checkadmin($id){
+        $query = "select isadmin FROM users
+                    WHERE user_name ="."'$id'";
+
+        $result = $this->conn->query($query);
+
+        $final = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        if($final[0]['isadmin'] == 0){
+            return FALSE;
+        }else{
+            return TRUE;
+        }
+
+    }
+
     public function loginUser(){
 
         $query = "select password from users where user_name = '$this->user_name'";
@@ -89,12 +108,14 @@ class UserDB extends DBConnection
         $hash = $fetch[0]['password'];
 
         if(password_verify($this->password, $hash)){
-            setcookie("session", "sessionstart", time() + 10, "/");
+            setcookie("session", "sessionstart", time() + 1999, "/");
+            session_start();
+            $_SESSION['user'] = $this->user_name;
             if(isset($_POST['remember'])){
-                setcookie('login', "$this->user_name", time() + 10, "/");
-                session_start();
-                $_SESSION['status'] = 1;
+                setcookie('login', "$this->user_name", time() + 160, "/");
+                $this->returnHome();
             }
+            $this->returnHome();
         }
         else{
             echo "Incorrect Username/Password";

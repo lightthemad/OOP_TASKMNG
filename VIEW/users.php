@@ -23,8 +23,14 @@ $users = $smth->selectAll();
     </thead>
     <tbody>
 
-    <?php foreach ($users as $row) :?>
+        <?php
+    session_start();
+    echo "Welcome, " . $_SESSION['user'] . "!";
 
+    foreach ($users as $row) :
+
+        ?>
+    <br>
     <tr>
 
         <td>
@@ -42,8 +48,14 @@ $users = $smth->selectAll();
         <td>
             <button id=<?php echo $row['id'] ?> class="deleter" > DELETE  </button>
             <a href="/index.php/users/update?id=<?php echo $row['id'] ?>"><button id=<?php echo $row['id'] ?> class="updater" > EDIT </button></a>
+            <?php $check = new UserDB(); if(!$check -> checkadmin($row['user_name'])){
+                echo "<button id='".$row['id']." 'class='adminmaker'> GIVE ADMIN PRIVILEGES </button>";
+            } ?>
 
         </td>
+
+
+
     </tr>
 
 
@@ -52,7 +64,7 @@ $users = $smth->selectAll();
 </table>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="../../VIEW/JS/deleteScript.js"></script>
+<script src="../../VIEW/JS/actionScript.js"></script>
 </body>
 
 </html>

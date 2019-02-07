@@ -47,6 +47,18 @@ class Controller extends Templating
         $check->checkUser($_GET['id']);
     }
 
+    function checkadmin()
+    {
+        $check = new UserDB();
+        $check->checkadmin($_GET['id']);
+    }
+
+    function makeAdmin()
+    {
+        $adm = new UserDB();
+        $adm->makeAdmin($_GET['id']);
+    }
+
     function getUpdate()
     {
         $this->render("edit");
@@ -55,26 +67,11 @@ class Controller extends Templating
     function register()
     {
         $this->userService->register();
-
     }
 
     function update()
     {
-
-        if (isset($_POST)) {
-            $upd = new UserDB();
-            $upd->user_name = $_POST['usernameapd'];
-            $upd->password = password_hash($_POST['password'], 1);
-            $upd->firstname = $_POST['firstname'];
-            $upd->lastname = $_POST['lastname'];
-            $upd->age = $_POST['age'];
-            $upd->img = $_POST['image'];
-            $upd->id = $_POST['id'];
-            $upd->update();
-            $return = new UserDB();
-            $return->returnUsers();
-
-        }
+        $this->userService->update();
     }
 
     function login()
@@ -83,7 +80,6 @@ class Controller extends Templating
         $log->user_name = $_POST['usernamelog'];
         $log->password = $_POST['passwordlog'];
         $log->loginUser();
-        $log->returnHome();
     }
 
     function logoutUser()
@@ -91,12 +87,14 @@ class Controller extends Templating
         session_destroy();
         unset($_COOKIE['session']);
         unset($_COOKIE['login']);
+        unset($_COOKIE['user']);
         if (isset($_COOKIE['session'])) {
             echo "session set";
         } else {
             echo "session unset";
         };
         setcookie('session', null, -1, '/');
+        setcookie("user", NULL, -1, "/");
         header('Location: /index.php/');
     }
 

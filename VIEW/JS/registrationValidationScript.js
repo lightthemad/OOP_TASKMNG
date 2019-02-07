@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-    alert(21);
-
     let passresp = 0;
     let loginresp = 0;
 
@@ -40,11 +38,11 @@ $(document).ready(function () {
 
     });
 
-    $('.pass').on('keydown', function () {
+    $('.pass').on('keyup', function () {
 
         let pass = $(this).val();
 
-        if(pass.match(/[A-Z]/) && pass.match(/[a-z]/) && pass.match(/[0-9]/))
+        if(pass.match(/[A-Z]/) && pass.match(/[a-z]/) && pass.match(/[0-9]/) && $('.pass').val().length > 6)
         {
             $(".passwordErrorMsg").html("Password is good");
             passresp = 1;
